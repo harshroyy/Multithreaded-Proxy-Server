@@ -329,11 +329,11 @@ int handle_request(int client_socketId, ParsedRequest *request, char* tempReq) {
        // Send the response to the client
        bytes_send = send(client_socketId, buf, bytes_send, 0);
        
-       // Copy the response to the temporary buffer for cache
-       for(int i=0; i<bytes_send/sizeof(char); i++) {
-            temp_buffer[temp_buffer_index] = buf[i];
-            temp_buffer_index++;
-       }
+        // Copy the response to the temporary buffer for cache
+        for(int i = 0; i < bytes_send; i++) {
+             temp_buffer[temp_buffer_index] = buf[i];
+             temp_buffer_index++;
+        }
 
        // Resize buffer to store more data
        temp_buffer_size += MAX_BYTES;
@@ -404,11 +404,8 @@ void *thread_fn(void *socketNew) {
     }   
     
     // ye ek temporary buffer hai jo actual request store karega.
-    char *tempReq = (char *) malloc(strlen(buffer) *sizeof(char)+1);
-
-    for(int i=0; i<strlen(buffer); i++) {
-        tempReq[i] = buffer[i];
-    } 
+    char *tempReq = (char *) malloc(strlen(buffer) + 1);
+    strcpy(tempReq, buffer);
 
     // Cache Check: Cache me eg. google.com ka response hai kya?
     struct cache_element* temp = find(tempReq);
