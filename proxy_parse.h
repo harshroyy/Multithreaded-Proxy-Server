@@ -56,6 +56,10 @@ struct ParsedHeader {
      size_t valuelen;
 };
 
+typedef struct ParsedRequest ParsedRequest;
+typedef struct ParsedHeader ParsedHeader;
+
+
 
 /* Create an empty parsing object to be used exactly once for parsing a single
  * request buffer */
