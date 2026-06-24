@@ -295,7 +295,7 @@ int handle_request(int client_socketId, ParsedRequest *request, char* tempReq) {
     } 
 
     // Headers Dubara Banana - Ab request ke saare headers append honge.
-    if(ParsedRequest_unparse_header(request, buf+len, (size_t)MAX_BYTES - len) < 0) {
+    if(ParsedRequest_unparse_headers(request, buf+len, (size_t)MAX_BYTES - len) < 0) {
         printf("Error unparsing header\n");
     }
 
@@ -479,7 +479,7 @@ int main(int argc, char* argv[]) {
     sem_init(&semaphore, 0, MAX_CLIENTS);
     pthread_mutex_init(&lock, NULL);
     
-    if(argv == 2) {
+    if(argc == 2) {
         port_number = atoi(argv[1]);
     }
     else {
